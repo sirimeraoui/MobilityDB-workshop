@@ -45,7 +45,17 @@ The workshop dependencies and data files are available in a Docker container run
     ```
  *  Run the Docker container.
     ```bash
-    docker run --name "mobilitydb" -d -p 5432 -v mobilitydb_data:/var/lib/postgresql mobilitydb/mobilitydb:12-2.5-develop-workshop 
+    docker run --name "mobilitydb" -d -p 5432 -v mobilitydb_data:/var/lib/postgresql mobilitydb/mobilitydb:15-3.4-develop
+    ```
+ *  If container fails to run run:
+    ```bash
+    docker logs mobilitydb 
+    example error, no postgress password provided 
+    * run this command to remove container
+    docker rm mobilitydb ('docker stop mobility db' if required)
+    * create container again with password
+    docker run --name "mobilitydb" -d -p 5432:5432 -v mobilitydb_data:/var/lib/postgresql -e POSTGRES_PASSWORD=mysecretpassword mobilitydb/mobilitydb:15-3.4-develop
+
     ```
  *  Enter into the Docker container.
     ```bash
@@ -53,7 +63,9 @@ The workshop dependencies and data files are available in a Docker container run
     ```
  *  Connect to the database  (username=docker, db=mobilitydb).
     ```bash
-    psql -U docker -d mobilitydb 
+    * psql -U docker -d mobilitydb 
+    or with password
+    psql -U docker -d mobilitydb -w 
     ```
  *  The workshop data files are available in the workshop directory inside the container.
 
